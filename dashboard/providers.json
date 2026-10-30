@@ -1,0 +1,137 @@
+{
+  "summary": {
+    "extractor": "gemini",
+    "total": 5,
+    "by_status": {
+      "verified": 5
+    },
+    "avg_score": 94.0,
+    "flag_counts": {}
+  },
+  "records": [
+    {
+      "name": "North Sydney Plaza Medical Centre",
+      "type": "general practice",
+      "address": "Suite 303, Level 3, 83 Mount Street",
+      "suburb": "North Sydney",
+      "state": "NSW",
+      "postcode": "2060",
+      "phone": "02 9923 1122",
+      "email": "admin@northsydneyplazamedicalcentre.com.au",
+      "website": "http://www.northsydneyplazamedicalcentre.com.au/",
+      "services": [
+        "Health check ups",
+        "Sexual transmitted disease screening",
+        "Family planning",
+        "Pregnancy tests",
+        "Antenatal Share Care",
+        "Pap smears",
+        "Vaccinations",
+        "Travel medicine"
+      ],
+      "score": 100,
+      "flags": [],
+      "source_url": "http://www.northsydneyplazamedicalcentre.com.au/",
+      "status": "verified"
+    },
+    {
+      "name": "West Pennant Hills Medical Centre",
+      "type": "general practice",
+      "address": "16-18 Castle Hill Road",
+      "suburb": "West Pennant Hills",
+      "state": "NSW",
+      "postcode": "2125",
+      "phone": "02 9481 7773",
+      "email": "reception@wphmedicalcentre.com.au",
+      "website": "http://www.wphmedicalcentre.com.au",
+      "services": [
+        "MENS' HEALTH CHECK",
+        "WOMENS' HEALTH CHECK",
+        "CHILD HEALTH, INCLUDING IMMUNISATIONS",
+        "PREVENTIVE HEALTH",
+        "SPORTS MEDICINE",
+        "SKINCANCER CHECKS",
+        "ON SITE PATHOLOGY",
+        "ON SITE ALLIED HEALTH SERVICE"
+      ],
+      "score": 100,
+      "flags": [],
+      "source_url": "http://www.wphmedicalcentre.com.au",
+      "status": "verified"
+    },
+    {
+      "name": "Sydney CBD Medical Centre",
+      "type": "general practice",
+      "address": "Shop 8, Ground Floor 151 Castlereagh Street",
+      "suburb": "Sydney",
+      "state": "NSW",
+      "postcode": "2000",
+      "phone": "02 8197 3388",
+      "email": null,
+      "website": "https://myhealth.net.au/sydney-cbd",
+      "services": [
+        "Pathology",
+        "Physiotherapy",
+        "Dietetics",
+        "Psychology",
+        "Childhood Vaccinations",
+        "Covid Vaccinations",
+        "Influenza Vaccination",
+        "Skin Cancer Checks"
+      ],
+      "score": 90,
+      "flags": [],
+      "source_url": "https://myhealth.net.au/sydney-cbd",
+      "status": "verified"
+    },
+    {
+      "name": "Kanwal Village Medical Centre",
+      "type": "general practice",
+      "address": "Suite C34, Kanwal Medical Complex, 654 Pacific Highway",
+      "suburb": "Hamlyn Terrace",
+      "state": "NSW",
+      "postcode": "2259",
+      "phone": "02 4393 6660",
+      "email": null,
+      "website": "https://www.kanwalvillagemedical.com.au/",
+      "services": [
+        "Family Medical Centre",
+        "General Medicine",
+        "Primary Care",
+        "Counselling",
+        "Diabetic Care",
+        "Immunisations",
+        "Vaccinations"
+      ],
+      "score": 90,
+      "flags": [],
+      "source_url": "https://www.kanwalvillagemedical.com.au/",
+      "status": "verified"
+    },
+    {
+      "name": "Leichhardt Women's Community Health Centre",
+      "type": "general practice",
+      "address": "55 Thornley St",
+      "suburb": "Leichhardt",
+      "state": "NSW",
+      "postcode": "2040",
+      "phone": "02 9560 3011",
+      "email": null,
+      "website": "https://www.lwchc.org.au/contact",
+      "services": [
+        "Women's Health GP Clinics",
+        "Nurse Clinics and Talks",
+        "Naturopathy",
+        "Acupuncture",
+        "Counselling",
+        "Alcohol, Nicotine and Other Drugs Services",
+        "HIV Screening and Testing",
+        "Domestic, Family & Sexual Violence"
+      ],
+      "score": 90,
+      "flags": [],
+      "source_url": "https://www.lwchc.org.au/contact",
+      "status": "verified"
+    }
+  ]
+}

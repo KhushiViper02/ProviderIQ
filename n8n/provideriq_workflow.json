@@ -1,0 +1,23 @@
+{
+  "name": "ProviderIQ nightly run",
+  "nodes": [
+    {"parameters": {"rule": {"interval": [{"field": "days", "triggerAtHour": 2}]}},
+     "name": "Nightly 2am", "type": "n8n-nodes-base.scheduleTrigger", "typeVersion": 1.2, "position": [0, 0]},
+    {"parameters": {"command": "cd /path/to/providerIQ && python -m provideriq.collect && PYTHONPATH=src python -m provideriq.pipeline --source data/raw"},
+     "name": "Collect + extract + verify", "type": "n8n-nodes-base.executeCommand", "typeVersion": 1, "position": [240, 0]},
+    {"parameters": {"jsCode": "const out = $input.first().json.stdout || '';\nconst s = JSON.parse(out.slice(out.indexOf('{')));\nreturn [{json: {total: s.total, review: (s.by_status.needs_review||0), rejected: (s.by_status.rejected||0), avg: s.avg_score}}];"},
+     "name": "Read summary", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [480, 0]},
+    {"parameters": {"conditions": {"number": [{"value1": "={{$json.review + $json.rejected}}", "operation": "larger", "value2": 0}]}},
+     "name": "Anything to review?", "type": "n8n-nodes-base.if", "typeVersion": 1, "position": [720, 0]},
+    {"parameters": {"fromEmail": "you@example.com", "toEmail": "you@example.com",
+      "subject": "ProviderIQ: {{$json.review}} records need review",
+      "text": "Run finished. Total: {{$json.total}}, needs review: {{$json.review}}, rejected: {{$json.rejected}}, average quality: {{$json.avg}}."},
+     "name": "Email reviewer", "type": "n8n-nodes-base.emailSend", "typeVersion": 2, "position": [960, -60]}
+  ],
+  "connections": {
+    "Nightly 2am": {"main": [[{"node": "Collect + extract + verify", "type": "main", "index": 0}]]},
+    "Collect + extract + verify": {"main": [[{"node": "Read summary", "type": "main", "index": 0}]]},
+    "Read summary": {"main": [[{"node": "Anything to review?", "type": "main", "index": 0}]]},
+    "Anything to review?": {"main": [[{"node": "Email reviewer", "type": "main", "index": 0}], []]}
+  }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProviderIQ</title>
+<style>
+:root{--bg:#f4f7f6;--s:#fff;--ink:#10252b;--mute:#52686d;--line:#d3e0dc;--teal:#0f766e;--amber:#b7791f;--red:#b4442f}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1a1d;--s:#142428;--ink:#e6f0ee;--mute:#93aaa9;--line:#25393d;--teal:#4fd1c0;--amber:#f0b84a;--red:#f08a74}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 40px}h1{margin:0 0 4px}p.sub{color:var(--mute);margin:0 0 16px}
+.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.k div{background:var(--s);border:1px solid var(--line);border-radius:10px;padding:12px}.k b{font-size:24px;display:block}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+button{font:inherit;border:1px solid var(--line);background:var(--s);color:var(--ink);border-radius:8px;padding:8px 12px;cursor:pointer;min-height:40px}
+button[aria-pressed=true]{background:var(--teal);color:var(--bg);border-color:var(--teal)}
+.card{background:var(--s);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px}
+.card h3{margin:0;font-size:16px}.m{color:var(--mute);font-size:13px}
+.fl{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;margin:4px 4px 0 0;border:1px solid var(--amber);color:var(--amber)}
+.sc{float:right;font-weight:700}.verified .sc{color:var(--teal)}.needs_review .sc{color:var(--amber)}.rejected .sc{color:var(--red)}
+</style></head><body><main>
+<h1>ProviderIQ</h1>
+<p class="sub">Healthcare provider data, extracted by AI and checked before anyone relies on it.</p>
+<div class="k" id="k"></div><div class="tabs" id="t"></div><div id="l"></div>
+</main>
+<script>
+const FB={summary:{extractor:"none",total:0,by_status:{},avg_score:0},records:[]};
+let D=FB,cur="all";
+fetch("providers.json").then(r=>r.json()).then(j=>{D=j;draw()}).catch(()=>{document.getElementById("l").textContent="Run the pipeline and copy outputs/providers.json next to this page.";draw()});
+function draw(){const s=D.summary,b=s.by_status||{};
+document.getElementById("k").innerHTML=[["Records",s.total],["Verified",b.verified||0],["Needs review",b.needs_review||0],["Rejected",b.rejected||0],["Avg quality",s.avg_score]].map(x=>`<div><b>${x[1]}</b>${x[0]}</div>`).join("");
+document.getElementById("t").innerHTML=["all","verified","needs_review","rejected"].map(x=>`<button aria-pressed="${x===cur}" data-s="${x}">${x.replace("_"," ")}</button>`).join("");
+document.querySelectorAll("#t button").forEach(e=>e.onclick=()=>{cur=e.dataset.s;draw()});
+const r=D.records.filter(x=>cur==="all"||x.status===cur);
+if(D.records.length)document.getElementById("l").innerHTML=r.length?r.map(x=>`<div class="card ${x.status}"><span class="sc">${x.score}</span><h3>${x.name}</h3><div class="m">${[x.address,x.suburb,x.state,x.postcode].filter(Boolean).join(", ")||"No address found"}</div><div class="m">${x.phone||"No phone"} · ${x.email||"No email"}</div>${(x.flags||[]).map(f=>`<span class="fl">${f.replace(/_/g," ")}</span>`).join("")}${x.duplicate_of?`<div class="m">Looks like a copy of ${x.duplicate_of}</div>`:""}</div>`).join(""):"<p class='m'>No records with this status.</p>"}
+draw();
+</script></body></html>
